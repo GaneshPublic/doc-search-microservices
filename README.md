@@ -34,13 +34,20 @@ kubectl -n docsearch port-forward svc/docsearch-frontend 8080:80
 * [Backend API](http://docsearch-backend:8000/docs) (This works within the pod).
 * [Frontend app](http://localhost:80) (works from browser)
 * [MongoDB](http://localhost:27017) (This works within the pod)
-```
+
 
 ### Scrren shorts
-* ![Welcome page](images/1.jpg)
-* ![Document insert](images/1.jpg)
-* ![After successful insert](images/1.jpg)
-* ![Document search](images/1.jpg)
+* *This is the welcome page*
+![Welcome page](images/1.jpg)
+
+* *Shows the document being inserted.*
+![Document insert](images/2.jpg)
+
+* *Confirmation page after a successful document upload.*
+![After successful insert](images/3.jpg)
+
+* *Search page displaying indexed documents.*
+![Document search](images/4.jpg)
 
 ### Accessing the application using portforward (optional)
 ```

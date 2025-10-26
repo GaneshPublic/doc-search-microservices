@@ -49,6 +49,25 @@ kubectl -n docsearch port-forward svc/docsearch-frontend 8080:80
 * *Search page displaying indexed documents.*
 ![Document search](images/4.jpg)
 
+### Horizontal scaling
+* Increase the replica count in values file for forntend and backend and upgrade the application to see it's horizontally scallable
+```
+<values.tmp.yaml>
+backend:
+  image: ganeshopen/doc-backend:latest
+  replicaCount: 2
+...
+frontend:
+  image: ganeshopen/doc-frontend:latest
+  replicaCount: 2
+...
+
+helm upgrade docsearch ./helm-chart -f helm-chart/values.tmp.yaml -n docsearch
+
+```
+* *Deployment details on to K8S cluster*
+![Deployment](images/5.jpg)
+
 ### Accessing the application using portforward (optional)
 ```
 kubectl -n docsearch port-forward svc/docsearch-frontend 8888:80

@@ -1,0 +1,23 @@
+backend:
+  image: ${DOCKERHUB_USER}/doc-backend:latest
+  replicaCount: 1
+  service:
+    port: 8000
+  env:
+    mongo_host: docsearch-mongodb
+    mongo_port: 27017
+    mongo_db: docsearch
+
+frontend:
+  image: ${DOCKERHUB_USER}/doc-frontend:latest
+  replicaCount: 1
+  service:
+    port: 80
+    targetPort: 80
+
+mongodb:
+  image: mongo:7.0
+  storage: 1Gi
+  service:
+    port: 27017
+  database: docsearch

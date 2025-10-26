@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: docsearch-mongodb
+    restart: always
+    environment:
+      - MONGO_INITDB_DATABASE=docsearch
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: docker.io/${DOCKERHUB_USER}/doc-backend:latest
+    container_name: docsearch-backend
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_HOST=mongodb
+      - MONGO_PORT=27017
+      - MONGO_DB=docsearch
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE: "http://docsearch-backend:8000"  # <<< build-time arg for Vite
+    image: docker.io/${DOCKERHUB_USER}/doc-frontend:latest
+    container_name: docsearch-frontend
+    depends_on:
+      - backend
+    environment:
+      - REACT_APP_BACKEND_URL=http://docsearch-backend:8000
+    ports:
+      - "80:80"
+
+volumes:
+  mongo_data:

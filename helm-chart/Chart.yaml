@@ -1,0 +1,6 @@
+apiVersion: v2
+name: docsearch
+description: Simple document search app with FastAPI, React, and MongoDB
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
